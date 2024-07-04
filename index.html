@@ -9,11 +9,10 @@
 <body>
     <div class="container">
         <h1>To-Do List</h1>
-        <select id="template-select" onchange="applyTemplate()">
-            <option value="">Select a template</option>
-            <option value="projectManagement">Project Management</option>
-            <option value="meetingAgenda">Meeting Agenda</option>
-            <option value="clientFollowUp">Client Follow-up</option>
+        <input type="text" id="category-input" placeholder="Enter a new category">
+        <button onclick="addCategory()">Add Category</button>
+        <select id="category-select" onchange="changeCategory()">
+            <option value="">Select a category</option>
         </select>
         <input type="text" id="todo-input" placeholder="Enter a new to-do">
         <select id="priority-select">
