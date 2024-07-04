@@ -1,56 +1,84 @@
 body {
-    font-family: Arial, sans-serif;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
     margin: 0;
-    background-color: #f0f0f0;
+    background-color: #f9f9f9;
 }
 
 .container {
     background-color: white;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    width: 300px;
+    padding: 20px 30px;
+    border-radius: 12px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 500px;
 }
 
 h1 {
     margin: 0 0 20px;
     text-align: center;
+    color: #333;
 }
 
 .add-category, .todo-section {
     margin-bottom: 20px;
 }
 
-.add-category input, .todo-section input, .todo-section select {
+.add-category input, .todo-inputs input, .todo-inputs select {
     padding: 10px;
     border: 1px solid #ddd;
     border-radius: 4px;
     margin-right: 10px;
-    width: calc(100% - 50px);
+    width: calc(100% - 80px);
     box-sizing: border-box;
 }
 
-.add-category button, .todo-section button {
-    padding: 10px;
+.add-category button, .todo-inputs button {
+    padding: 10px 20px;
     border: none;
-    background-color: #28a745;
+    background-color: #007bff;
     color: white;
     border-radius: 4px;
     cursor: pointer;
-    width: 100%;
 }
 
-.add-category button:hover, .todo-section button:hover {
-    background-color: #218838;
+.add-category button:hover, .todo-inputs button:hover {
+    background-color: #0056b3;
 }
 
 .todo-section select {
-    width: calc(100% - 80px);
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
     margin-bottom: 10px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.todo-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.todo-inputs {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+.todo-inputs input {
+    width: 60%;
+}
+
+.todo-inputs select {
+    width: 25%;
+    margin-right: 10px;
 }
 
 ul {
@@ -60,14 +88,17 @@ ul {
 
 li {
     padding: 10px;
-    border-bottom: 1px solid #ddd;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    margin-bottom: 10px;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    transition: background-color 0.3s;
 }
 
-li:last-child {
-    border-bottom: none;
+li:hover {
+    background-color: #f1f1f1;
 }
 
 .todo-buttons button {
@@ -81,21 +112,4 @@ li:last-child {
 }
 
 .todo-buttons button.delete {
-    background-color: #dc3545;
-}
-
-.todo-buttons button:hover {
-    opacity: 0.8;
-}
-
-.low {
-    background-color: #d4edda;
-}
-
-.medium {
-    background-color: #fff3cd;
-}
-
-.high {
-    background-color: #f8d7da;
-}
+    backgroun
