@@ -1,10 +1,53 @@
+let categories = {};
+
+function addCategory() {
+    const categoryInput = document.getElementById('category-input');
+    const categoryName = categoryInput.value.trim();
+    if (categoryName === '' || categories[categoryName]) return;
+
+    categories[categoryName] = [];
+    
+    const categorySelect = document.getElementById('category-select');
+    const option = document.createElement('option');
+    option.value = categoryName;
+    option.textContent = categoryName;
+    categorySelect.appendChild(option);
+    
+    categoryInput.value = '';
+}
+
+function changeCategory() {
+    const selectedCategory = document.getElementById('category-select').value;
+    const todoList = document.getElementById('todo-list');
+    todoList.innerHTML = '';
+
+    if (selectedCategory && categories[selectedCategory]) {
+        categories[selectedCategory].forEach(todo => {
+            const li = createTodoElement(todo.text, todo.priority);
+            todoList.appendChild(li);
+        });
+    }
+}
+
 function addTodo() {
-    const input = document.getElementById('todo-input');
-    const todoText = input.value.trim();
-    if (todoText === '') return;
-
+    const todoInput = document.getElementById('todo-input');
+    const todoText = todoInput.value.trim();
     const priority = document.getElementById('priority-select').value;
+    const selectedCategory = document.getElementById('category-select').value;
 
+    if (todoText === '' || selectedCategory === '') return;
+
+    const todo = { text: todoText, priority: priority };
+    categories[selectedCategory].push(todo);
+    
+    const todoList = document.getElementById('todo-list');
+    const li = createTodoElement(todoText, priority);
+    todoList.appendChild(li);
+    
+    todoInput.value = '';
+}
+
+function createTodoElement(todoText, priority) {
     const li = document.createElement('li');
     li.classList.add(priority);
     
@@ -27,89 +70,32 @@ function addTodo() {
     deleteButton.classList.add('delete');
     deleteButton.onclick = function () {
         li.remove();
+        const selectedCategory = document.getElementById('category-select').value;
+        categories[selectedCategory] = categories[selectedCategory].filter(todo => todo.text !== todoText);
     };
 
     buttonsDiv.appendChild(editButton);
     buttonsDiv.appendChild(deleteButton);
     li.appendChild(buttonsDiv);
 
-    document.getElementById('todo-list').appendChild(li);
-    input.value = '';
+    return li;
 }
 
 function editTodo(todoContent, li) {
     const newTodoText = prompt('Edit your todo', todoContent.textContent);
+    const selectedCategory = document.getElementById('category-select').value;
+    const priority = li.className;
+
     if (newTodoText !== null && newTodoText.trim() !== '') {
+        const todoIndex = categories[selectedCategory].findIndex(todo => todo.text === todoContent.textContent);
+        categories[selectedCategory][todoIndex].text = newTodoText.trim();
         todoContent.textContent = newTodoText.trim();
     }
-    const newPriority = prompt('Edit the priority (low, medium, high)', li.className);
+
+    const newPriority = prompt('Edit the priority (low, medium, high)', priority);
     if (newPriority !== null && (newPriority === 'low' || newPriority === 'medium' || newPriority === 'high')) {
+        const todoIndex = categories[selectedCategory].findIndex(todo => todo.text === todoContent.textContent);
+        categories[selectedCategory][todoIndex].priority = newPriority;
         li.className = newPriority;
     }
-}
-
-function applyTemplate() {
-    const template = document.getElementById('template-select').value;
-    const todoList = document.getElementById('todo-list');
-    todoList.innerHTML = '';
-
-    let tasks = [];
-    
-    if (template === 'projectManagement') {
-        tasks = [
-            { text: 'Define project scope', priority: 'high' },
-            { text: 'Create project plan', priority: 'medium' },
-            { text: 'Assign tasks', priority: 'medium' },
-            { text: 'Set deadlines', priority: 'high' },
-            { text: 'Monitor progress', priority: 'low' }
-        ];
-    } else if (template === 'meetingAgenda') {
-        tasks = [
-            { text: 'Set meeting date and time', priority: 'high' },
-            { text: 'Prepare meeting agenda', priority: 'medium' },
-            { text: 'Send out invites', priority: 'high' },
-            { text: 'Review previous meeting notes', priority: 'medium' },
-            { text: 'Follow up on action items', priority: 'low' }
-        ];
-    } else if (template === 'clientFollowUp') {
-        tasks = [
-            { text: 'Send thank you email', priority: 'high' },
-            { text: 'Schedule follow-up meeting', priority: 'medium' },
-            { text: 'Prepare follow-up materials', priority: 'medium' },
-            { text: 'Address client feedback', priority: 'high' },
-            { text: 'Plan next steps', priority: 'low' }
-        ];
-    }
-
-    tasks.forEach(task => {
-        const li = document.createElement('li');
-        li.classList.add(task.priority);
-        
-        const todoContent = document.createElement('span');
-        todoContent.textContent = task.text;
-        todoContent.classList.add('todo-text');
-        li.appendChild(todoContent);
-        
-        const buttonsDiv = document.createElement('div');
-        buttonsDiv.classList.add('todo-buttons');
-        
-        const editButton = document.createElement('button');
-        editButton.textContent = 'Edit';
-        editButton.onclick = function () {
-            editTodo(todoContent, li);
-        };
-        
-        const deleteButton = document.createElement('button');
-        deleteButton.textContent = 'Delete';
-        deleteButton.classList.add('delete');
-        deleteButton.onclick = function () {
-            li.remove();
-        };
-
-        buttonsDiv.appendChild(editButton);
-        buttonsDiv.appendChild(deleteButton);
-        li.appendChild(buttonsDiv);
-
-        todoList.appendChild(li);
-    });
 }
