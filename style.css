@@ -29,7 +29,8 @@ h1 {
     margin-bottom: 20px;
 }
 
-.add-category input {
+.add-category input[type="text"], 
+.add-category input[type="color"] {
     flex: 1;
     padding: 10px;
     border: 1px solid #ddd;
