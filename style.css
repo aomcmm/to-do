@@ -19,7 +19,7 @@ h1 {
     margin: 0 0 20px;
 }
 
-#todo-input, #priority-select, #template-select {
+#category-input, #todo-input, #priority-select, #category-select {
     padding: 10px;
     border: 1px solid #ddd;
     border-radius: 4px;
