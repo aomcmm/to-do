@@ -2,15 +2,18 @@ let categories = {};
 
 function addCategory() {
     const categoryInput = document.getElementById('category-input');
+    const categoryColorInput = document.getElementById('category-color');
     const categoryName = categoryInput.value.trim();
+    const categoryColor = categoryColorInput.value;
     if (categoryName === '' || categories[categoryName]) return;
 
-    categories[categoryName] = [];
+    categories[categoryName] = { color: categoryColor, todos: [] };
     
     const categorySelect = document.getElementById('category-select');
     const option = document.createElement('option');
     option.value = categoryName;
     option.textContent = categoryName;
+    option.style.backgroundColor = categoryColor;
     categorySelect.appendChild(option);
     
     categoryInput.value = '';
@@ -22,8 +25,8 @@ function changeCategory() {
     todoList.innerHTML = '';
 
     if (selectedCategory && categories[selectedCategory]) {
-        categories[selectedCategory].forEach(todo => {
-            const li = createTodoElement(todo.text, todo.priority);
+        categories[selectedCategory].todos.forEach(todo => {
+            const li = createTodoElement(todo.text, todo.priority, categories[selectedCategory].color);
             todoList.appendChild(li);
         });
     }
@@ -38,18 +41,19 @@ function addTodo() {
     if (todoText === '' || selectedCategory === '') return;
 
     const todo = { text: todoText, priority: priority };
-    categories[selectedCategory].push(todo);
+    categories[selectedCategory].todos.push(todo);
     
     const todoList = document.getElementById('todo-list');
-    const li = createTodoElement(todoText, priority);
+    const li = createTodoElement(todoText, priority, categories[selectedCategory].color);
     todoList.appendChild(li);
     
     todoInput.value = '';
 }
 
-function createTodoElement(todoText, priority) {
+function createTodoElement(todoText, priority, categoryColor) {
     const li = document.createElement('li');
     li.classList.add(priority);
+    li.style.borderLeftColor = categoryColor;
     
     const todoContent = document.createElement('span');
     todoContent.textContent = todoText;
@@ -71,7 +75,7 @@ function createTodoElement(todoText, priority) {
     deleteButton.onclick = function () {
         li.remove();
         const selectedCategory = document.getElementById('category-select').value;
-        categories[selectedCategory] = categories[selectedCategory].filter(todo => todo.text !== todoText);
+        categories[selectedCategory].todos = categories[selectedCategory].todos.filter(todo => todo.text !== todoText);
     };
 
     buttonsDiv.appendChild(editButton);
@@ -87,13 +91,5 @@ function editTodo(todoContent, li) {
     const priority = li.className;
 
     if (newTodoText !== null && newTodoText.trim() !== '') {
-        const todoIndex = categories[selectedCategory].findIndex(todo => todo.text === todoContent.textContent);
-        categories[selectedCategory][todoIndex].text = newTodoText.trim();
-        todoContent.textContent = newTodoText.trim();
-    }
-
-    const newPriority = prompt('Edit the priority (low, medium, high)', priority);
-    if (newPriority !== null && (newPriority === 'low' || newPriority === 'medium' || newPriority === 'high')) {
-        const todoIndex = categories[selectedCategory].findIndex(todo => todo.text === todoContent.textContent);
-        categories[selectedCategory][todoIndex].priority = newPriority;
-        li.className =
+        const todoIndex = categories[selectedCategory].todos.findIndex(todo => todo.text === todoContent.textContent);
+        categories[selectedCategory].
