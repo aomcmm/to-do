@@ -60,13 +60,13 @@ function createTodoElement(todoText, priority) {
     buttonsDiv.classList.add('todo-buttons');
     
     const editButton = document.createElement('button');
-    editButton.textContent = 'Edit';
+    editButton.innerHTML = '<i class="fas fa-edit"></i>';
     editButton.onclick = function () {
         editTodo(todoContent, li);
     };
     
     const deleteButton = document.createElement('button');
-    deleteButton.textContent = 'Delete';
+    deleteButton.innerHTML = '<i class="fas fa-trash-alt"></i>';
     deleteButton.classList.add('delete');
     deleteButton.onclick = function () {
         li.remove();
