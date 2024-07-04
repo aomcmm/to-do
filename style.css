@@ -19,11 +19,11 @@ h1 {
     margin: 0 0 20px;
 }
 
-#todo-input {
-    width: 200px;
+#todo-input, #priority-select {
     padding: 10px;
     border: 1px solid #ddd;
     border-radius: 4px;
+    margin-right: 10px;
 }
 
 button {
@@ -74,16 +74,14 @@ li:last-child {
     opacity: 0.8;
 }
 
-    list-style: none;
-    padding: 0;
+.low {
+    background-color: #d4edda;
 }
 
-li {
-    padding: 10px;
-    border-bottom: 1px solid #ddd;
+.medium {
+    background-color: #fff3cd;
 }
 
-li:last-child {
-    border-bottom: none;
+.high {
+    background-color: #f8d7da;
 }
-
