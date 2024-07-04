@@ -17,6 +17,7 @@ function addCategory() {
     categorySelect.appendChild(option);
     
     categoryInput.value = '';
+    categoryColorInput.value = '#007bff'; // Reset to default color
 }
 
 function changeCategory() {
@@ -91,15 +92,4 @@ function editTodo(todoContent, li) {
     const priority = li.className;
 
     if (newTodoText !== null && newTodoText.trim() !== '') {
-        const todoIndex = categories[selectedCategory].todos.findIndex(todo => todo.text === todoContent.textContent);
-        categories[selectedCategory].todos[todoIndex].text = newTodoText.trim();
-        todoContent.textContent = newTodoText.trim();
-    }
-
-    const newPriority = prompt('Edit the priority (low, medium, high)', priority);
-    if (newPriority !== null && (newPriority === 'low' || newPriority === 'medium' || newPriority === 'high')) {
-        const todoIndex = categories[selectedCategory].todos.findIndex(todo => todo.text === todoContent.textContent);
-        categories[selectedCategory].todos[todoIndex].priority = newPriority;
-        li.className = newPriority;
-    }
-}
+       
