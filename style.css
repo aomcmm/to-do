@@ -13,30 +13,44 @@ body {
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 300px;
 }
 
 h1 {
     margin: 0 0 20px;
+    text-align: center;
 }
 
-#category-input, #todo-input, #priority-select, #category-select {
+.add-category, .todo-section {
+    margin-bottom: 20px;
+}
+
+.add-category input, .todo-section input, .todo-section select {
     padding: 10px;
     border: 1px solid #ddd;
     border-radius: 4px;
     margin-right: 10px;
+    width: calc(100% - 50px);
+    box-sizing: border-box;
 }
 
-button {
-    padding: 10px 15px;
+.add-category button, .todo-section button {
+    padding: 10px;
     border: none;
     background-color: #28a745;
     color: white;
     border-radius: 4px;
     cursor: pointer;
+    width: 100%;
 }
 
-button:hover {
+.add-category button:hover, .todo-section button:hover {
     background-color: #218838;
+}
+
+.todo-section select {
+    width: calc(100% - 80px);
+    margin-bottom: 10px;
 }
 
 ul {
