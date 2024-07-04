@@ -96,6 +96,4 @@ function editTodo(todoContent, li) {
     if (newPriority !== null && (newPriority === 'low' || newPriority === 'medium' || newPriority === 'high')) {
         const todoIndex = categories[selectedCategory].findIndex(todo => todo.text === todoContent.textContent);
         categories[selectedCategory][todoIndex].priority = newPriority;
-        li.className = newPriority;
-    }
-}
+        li.className =
