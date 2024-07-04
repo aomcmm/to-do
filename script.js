@@ -73,9 +73,9 @@ function createTodoElement(todoText, priority, categoryColor) {
     deleteButton.innerHTML = '<i class="fas fa-trash-alt"></i>';
     deleteButton.classList.add('delete');
     deleteButton.onclick = function () {
-        li.remove();
         const selectedCategory = document.getElementById('category-select').value;
-        categories[selectedCategory].todos = categories[selectedCategory].todos.filter(todo => todo.text !== todoText);
+        categories[selectedCategory].todos = categories[selectedCategory].todos.filter(todo => todo.text !== todoContent.textContent);
+        li.remove();
     };
 
     buttonsDiv.appendChild(editButton);
@@ -92,4 +92,14 @@ function editTodo(todoContent, li) {
 
     if (newTodoText !== null && newTodoText.trim() !== '') {
         const todoIndex = categories[selectedCategory].todos.findIndex(todo => todo.text === todoContent.textContent);
-        categories[selectedCategory].
+        categories[selectedCategory].todos[todoIndex].text = newTodoText.trim();
+        todoContent.textContent = newTodoText.trim();
+    }
+
+    const newPriority = prompt('Edit the priority (low, medium, high)', priority);
+    if (newPriority !== null && (newPriority === 'low' || newPriority === 'medium' || newPriority === 'high')) {
+        const todoIndex = categories[selectedCategory].todos.findIndex(todo => todo.text === todoContent.textContent);
+        categories[selectedCategory].todos[todoIndex].priority = newPriority;
+        li.className = newPriority;
+    }
+}
